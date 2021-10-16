@@ -38,4 +38,5 @@ alg4/lib/
 alg4/src/algs4-data/
 
 ### src.Solution为LeetCode每日一题临时文件夹 ###
-./src/Solution.java
+
+/src/Solution.java
