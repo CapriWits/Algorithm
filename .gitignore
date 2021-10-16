@@ -36,3 +36,6 @@ build/
 ### alg4 自带源码 lib 和 数据集 ###
 alg4/lib/
 alg4/src/algs4-data/
+
+### src.Solution为LeetCode每日一题临时文件夹 ###
+./src/Solution.java
