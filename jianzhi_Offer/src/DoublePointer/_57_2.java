@@ -27,7 +27,7 @@ public class _57_2 {
                     ans[k - i] = k;
                 res.add(ans);
             }
-            if (sum >= target) {
+            if (sum >= target) { // 边界一样，指针的操作「sum == target」合并到这里
                 sum -= i;
                 i++;
             } else {
