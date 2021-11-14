@@ -21,7 +21,7 @@ public class _56_1 {
         for (int num : nums) {
             n ^= num;
         }
-        while ((n & m) == 0) {
+        while ((n & m) == 0) { // 提取最右侧的 1，可以使用 n & (~n + 1) 或 n & (-n);
             m <<= 1;
         }
         for (int num : nums) {
