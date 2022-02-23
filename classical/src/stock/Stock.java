@@ -42,7 +42,7 @@ public class Stock {
      */
     public int maxProfit_k1_2(int[] prices) {
         int n = prices.length;
-        int dp_0 = 0, dp_1 = Integer.MIN_VALUE;
+        int dp_0 = 0, dp_1 = -prices[0];
         for (int i = 0; i < n; i++) {
             dp_0 = Math.max(dp_0, dp_1 + prices[i]);
             dp_1 = Math.max(dp_1, -prices[i]);
@@ -69,7 +69,7 @@ public class Stock {
      */
     public int maxProfit_kINF(int[] prices) {
         int n = prices.length;
-        int dp_0 = 0, dp_1 = Integer.MIN_VALUE;
+        int dp_0 = 0, dp_1 = -prices[0];
         for (int i = 0; i < n; i++) {
             int tmp = dp_0;
             dp_0 = Math.max(dp_0, dp_1 + prices[i]);
@@ -121,13 +121,14 @@ public class Stock {
      * 交易次数限制 2 次，空间降为 O(1)
      */
     public int maxProfit_k2_1(int[] prices) {
-        int dp_i10 = 0, dp_i11 = Integer.MIN_VALUE;
-        int dp_i20 = 0, dp_i21 = Integer.MIN_VALUE;
-        for (int price : prices) {
-            dp_i20 = Math.max(dp_i20, dp_i21 + price);
-            dp_i21 = Math.max(dp_i21, dp_i10 - price);
-            dp_i10 = Math.max(dp_i10, dp_i11 + price);
-            dp_i11 = Math.max(dp_i11, -price);
+        int n = prices.length;
+        int dp_i10 = 0, dp_i11 = -prices[0];
+        int dp_i20 = 0, dp_i21 = -prices[0];
+        for (int i = 1; i < n; i++) {
+            dp_i20 = Math.max(dp_i20, dp_i21 + prices[i]);
+            dp_i21 = Math.max(dp_i21, dp_i10 - prices[i]);
+            dp_i10 = Math.max(dp_i10, dp_i11 + prices[i]);
+            dp_i11 = Math.max(dp_i11, -prices[i]);
         }
         return dp_i20;
     }
@@ -163,13 +164,14 @@ public class Stock {
      * 交易次数无限，含一天交易冷冻期
      */
     public int maxProfit(int[] prices) {
-        int dp_i_0 = 0, dp_i_1 = Integer.MIN_VALUE;
+        int n = prices.length;
+        int dp_i_0 = 0, dp_i_1 = -prices[0];
         int dp_pre_0 = 0; // dp[i-2][0] = 0
-        for (int price : prices) {
+        for (int i = 1; i < n; i++) {
             int tmp = dp_i_0;
-            dp_i_0 = Math.max(dp_i_0, dp_i_1 + price);
-            dp_i_1 = Math.max(dp_i_1, dp_pre_0 - price);
-            dp_pre_0 = tmp; // 前面计算相当于都往后推了一天，所以 dp_i_0 就是前两天
+            dp_i_0 = Math.max(dp_i_0, dp_i_1 + prices[i]);
+            dp_i_1 = Math.max(dp_i_1, dp_pre_0 - prices[i]);
+            dp_pre_0 = tmp; // 前面计算相当于都往后推了一天，所以 tmp 就是前两天
         }
         return dp_i_0;
     }
@@ -180,10 +182,12 @@ public class Stock {
      * 交易次数无限，含交易费
      */
     public int maxProfit(int[] prices, int fee) {
-        int dp_i_0 = 0, dp_i_1 = Integer.MIN_VALUE;
-        for (int price : prices) {
-            dp_i_0 = Math.max(dp_i_0, dp_i_1 + price);
-            dp_i_1 = Math.max(dp_i_1, dp_i_0 - price - fee);
+        int n = prices.length;
+        int dp_i_0 = 0, dp_i_1 = -prices[0] - fee;
+        for (int i = 1; i < n; i++) {
+            int tmp0 = dp_i_0;
+            dp_i_0 = Math.max(tmp0, dp_i_1 + prices[i]);
+            dp_i_1 = Math.max(dp_i_1, tmp0 - prices[i] - fee);
         }
         return dp_i_0;
     }
